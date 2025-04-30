@@ -1,15 +1,33 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import FavoriteButton from "../components/FavoriteButton";
 
 // This function should ALWAYS return an array
 function getLikesFromLocalStorage() {
-    //  ALWAYS return an array
+
+    // This could be null
+    const storedRecipes = localStorage.getItem('likedRecipes')
+
+    if (!storedRecipes) return [];
+
+    try {
+        // This could throw an error
+        const recipes = JSON.parse(storedRecipes)
+
+        // recipes might not be an array
+        if (!Array.isArray(recipes)) return [];
+
+        return recipes
+
+    } catch (error) {
+        return []
+    }
 }
 
-function SingleRecipePage() {
+function SingleRecipePage({ favorites, setFavorites }) {
     const [recipe, setRecipe] = useState(null);
-    const [like, setLike] = useState(false);
+
     const params = useParams()
 
     const fetchRecipes = async () => {
@@ -23,46 +41,28 @@ function SingleRecipePage() {
     
             const data = await res.json();
             setRecipe(data);
-            console.log("data:", data)
+            // console.log("data:", data)
 
         } catch {
             console.log(error)
         }
     }
 
-    //console.log("params:", params);
-
     useEffect(() => {
-        console.log("The component has mounted.")
+        // console.log("The component has mounted.")
         fetchRecipes();
     }, []);
 
     
-    useEffect(() => {
-        console.log("The component mounted OR recipe was updated.")
-    }, [recipe])
-    
     if (!recipe) {
         return <>Loading...</>
-    }
-
-    function handleLikeButton() {
-        // get likes from localStorage
-
-        // if the recipe is liked, remove it, else add it
-
-        // save back to localStorage
-
-        // setLike to the opposite of like
-        // (like) ? setLike(false) : setLike(true);
-        setLike(!like)
     }
 
     return (
         <>
             <Link to="/recipes">Return</Link>
             <br/><br/>
-            <button onClick={handleLikeButton}>{ (!like) ? "Like" : "Unlike" }</button>
+            <FavoriteButton recipeId={ Number(params.id) } favorites={ favorites } setFavorites={setFavorites}/>
             <h1>{recipe.name}</h1>
             <ul>
                 {recipe.ingredients.map((ingredient) => {

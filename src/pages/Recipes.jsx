@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import FavoriteButton from "../components/FavoriteButton";
+import { fetchRecipes } from "../util/util";
+import { getFavoritesFromLocalStorage } from "../util/util";
 
 /*
         useEffect(callback, dependencyArray)
@@ -24,34 +27,42 @@ import { Link } from "react-router-dom";
             })
 
         npm i react-router-dom
+
+    How to handle proimses
+
+    1. Async/await
+
+        async function myAsyncFn() {
+            let result = await thePromise
+        }
+
+    2. then/catch
+
+        thePromise
+            .then(result => {
+
+            })
 */
 
-function Recipes() {
+function Recipes({ favorites, setFavorites }) {
     const [recipes, setRecipes] = useState([]);
     const [skip, setSkip] = useState(0);
     const [fetchStatus, setFetchStatus] = useState("loading")
 
-    const fetchRecipes = async () => {
-        try {
-            const res = await fetch(`https://dummyjson.com/recipes?limit=8&skip=${skip}`);
-    
-            if (!res.ok) {
-                setFetchStatus("error");
-                return
-            }
-    
-            const data = await res.json();
-            console.log(data)
-            setRecipes(data.recipes);
-            setFetchStatus('success')
-        } catch (error) {
-            console.log(error)
+    async function loadRecipes() {
+        let result = await fetchRecipes(skip);
+
+        if (!result) {
             setFetchStatus("error")
+            return
         }
+        // console.log(result);
+        setRecipes(result.recipes);
+        setFetchStatus("success")
     }
 
     useEffect(() => {
-        fetchRecipes();
+        loadRecipes()
     }, [skip]);
 
     const handlePreviousButton = () => {
@@ -89,10 +100,13 @@ function Recipes() {
                 return (
                     <div key={ recipe.id }>
                         <Link to={`/recipe/${recipe.id}`}>
+                            <br/>
                             { recipe.name }
                             <br/>
                             <img src={ recipe.image } width="120px"/>
+                            <br/>
                         </Link>
+                        <FavoriteButton recipeId={recipe.id} favorites={favorites} setFavorites={setFavorites} />
                     </div>
                 )
             })}

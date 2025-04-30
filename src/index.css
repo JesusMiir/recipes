@@ -1,4 +1,173 @@
+@import "tailwindcss";
+
 * {
   box-sizing: border-box;
-  background-color: #f0f0f0;
+  background-color: #fff;
+}
+
+/* Reset and Basic Styles */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Professional and readable font */
+  line-height: 1.6;
+  background-color: #f8f9fa; /* Light, clean background */
+  color: #333; /* Dark, readable text color */
+  -webkit-font-smoothing: antialiased; /* Improve font rendering for smoother text */
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  color: #222;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+p {
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
+  color: #555;
+}
+
+a {
+  color: #007bff; /* Primary brand color for links */
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: #0056b3; /* Darker shade on hover for interaction feedback */
+}
+
+/* Container for centering content */
+.container {
+  max-width: 1200px; /* Adjust as needed for your layout */
+  margin: 0 auto;
+  padding: 20px; /* Add some consistent padding around content */
+}
+
+/* Example for a Card Component */
+.card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.card-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.card-content {
+  font-size: 1rem;
+  color: #666;
+}
+
+/* Example for a Navigation Bar */
+.navbar {
+  display: inline;
+  background-color: #fff;
+  padding: 5px 15px;
+  border: 1px solid #eee;
+  margin-right: 10px;
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.navbar-logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #222;
+}
+
+.navbar-links {
+  list-style: none;
+  display: flex;
+}
+
+.navbar-links li {
+  margin-left: 20px;
+}
+
+.navbar-links a {
+  color: #555;
+  font-weight: 500;
+}
+
+.navbar-links a:hover {
+  color: #007bff;
+}
+
+/* Example for a Homepage */
+.homepage-hero {
+  background-color: #e9ecef;
+  padding: 80px 0;
+  text-align: center;
+}
+
+.homepage-hero-title {
+  font-size: 3rem;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.homepage-hero-subtitle {
+  font-size: 1.2rem;
+  color: #666;
+  margin-bottom: 30px;
+}
+
+/* Example for a Recipes List Page */
+.recipes-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid layout */
+  gap: 20px;
+  padding: 20px;
+}
+
+/* App.css */
+.container {
+  max-width: 1200px; /* Adjust the maximum width as needed */
+  margin: 0 auto; /* This horizontally centers the container */
+  padding: 20px; /* Add some padding around the content within the container */
+}
+
+/* Optional: Add some basic global styles here as well, if you don't have a separate global.css */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  background-color: #f8f9fa;
+  color: #333;
+}
+
+.button-like {
+  border: 0px solid #fff;
 }
