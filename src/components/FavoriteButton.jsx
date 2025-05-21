@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
+import { RecipeContext } from '../context/RecipiesContext';
 
 /*
   Homework: study higher order array methods
@@ -6,23 +7,14 @@ import { useEffect, useState } from 'react';
   And define your own version of each one.
 */
 
-function FavoriteButton({ recipeId, favorites, setFavorites }) {
+function FavoriteButton({ recipeId }) {
   // console.log(recipeId, favorites, setFavorites)
-  const i = favorites.findIndex(r => r.id === recipeId)
-  const recipe = favorites[i]
+  const { favoriteRecipes, toggleFavorite } = useContext(RecipeContext) 
+  const i = favoriteRecipes.findIndex(r => r.id === recipeId)
+  const recipe = favoriteRecipes[i]
 
   function handleLikeButtonFB() {
-
-
-    const newFavorites = [...favorites]
-    if (!recipe) {
-      newFavorites.push({ id: recipeId, liked: true })
-    } else {
-      newFavorites[i].liked = !newFavorites[i].liked
-    }
-
-    setFavorites(newFavorites)
-
+    toggleFavorite(recipeId)
   } 
 
   return (

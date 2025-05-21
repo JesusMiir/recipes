@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from "react";
-import { ExampleContext } from "../context/ExampleContext";
+import { RecipeContext } from "../context/RecipiesContext";
 import { populateFavorites } from "../util/util";
 
 /*
@@ -8,15 +8,29 @@ import { populateFavorites } from "../util/util";
     toggleRecipeFavorite
     
     put your localStorage functions and any async functions in the context?
+
+    US            UK
+    favorite      favourite
+    color         colour
+    defense       defence
+
+    useState
+    useEffect
+    useContext
+    useRef
+    useMemo
+    useReducer
+
 */
 
-function FavoriteRecipe({ favorites, setFavorites }) {
+function FavoriteRecipe() {
+    
+    const { favoriteRecipes, toggleFavorite } = useContext(RecipeContext)
     const [recipes, setRecipes] = useState([]);
     
-    const { n, increaseN } = useContext(ExampleContext)
 
     async function loadRecipes() {
-      const recipes = await populateFavorites(favorites)
+      const recipes = await populateFavorites(favoriteRecipes)
       setRecipes(recipes)
     
     }
@@ -27,9 +41,6 @@ function FavoriteRecipe({ favorites, setFavorites }) {
     
     return (
         <>
-          <button onClick={increaseN}>
-            {n}
-          </button>
           <h2>Favorites</h2>  
           { recipes.map((recipe) => {
             return (

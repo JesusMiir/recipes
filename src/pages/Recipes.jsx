@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { RecipeContext } from "../context/RecipiesContext";
 import { Link } from "react-router-dom";
 import FavoriteButton from "../components/FavoriteButton";
 import { fetchRecipes } from "../util/util";
-import { getFavoritesFromLocalStorage } from "../util/util";
+
 
 /*
         useEffect(callback, dependencyArray)
@@ -45,36 +46,20 @@ import { getFavoritesFromLocalStorage } from "../util/util";
 */
 
 function Recipes({ favorites, setFavorites }) {
-    const [recipes, setRecipes] = useState([]);
-    const [skip, setSkip] = useState(0);
-    const [fetchStatus, setFetchStatus] = useState("loading")
+    const {
+        recipes,
+        skip,
+        fetchStatus,
+        turnPage
+    } = useContext(RecipeContext)
 
-    async function loadRecipes() {
-        let result = await fetchRecipes(skip);
-
-        if (!result) {
-            setFetchStatus("error")
-            return
-        }
-        // console.log(result);
-        setRecipes(result.recipes);
-        setFetchStatus("success")
-    }
-
-    useEffect(() => {
-        loadRecipes()
-    }, [skip]);
 
     const handlePreviousButton = () => {
-        if (skip > 0) {
-            setSkip( skip - 8 );
-        }
+        turnPage(-1)
     }
 
     const handleNextButton = () => {
-        if (skip < 48) {
-            setSkip( skip + 8 );
-        }
+        turnPage(1)
     }
 
     if (fetchStatus === 'loading') return (

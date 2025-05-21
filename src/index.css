@@ -171,3 +171,12 @@ body {
 .button-like {
   border: 0px solid #fff;
 }
+
+button {
+  padding: 1rem;
+  border: 1px solid gray;
+}
+
+#location {
+  border: 1px solid #333;
+}

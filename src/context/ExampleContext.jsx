@@ -12,6 +12,7 @@ export function ExampleContextProvider({children}) {
     }
 
     const decreaseN = () => {
+        if (newN < 0) newN = 0
         setN(n-5)
     }
 
